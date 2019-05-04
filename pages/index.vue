@@ -5,11 +5,12 @@
       delimiter-icon="stop"
       prev-icon="mdi-arrow-left"
       next-icon="mdi-arrow-right"
+      height="950"
     >
       <v-carousel-item
-        v-for="(item, i) in items"
+        v-for="(item, i) in carousselImages"
         :key="i"
-        :src="item.src"
+        :src="item"
         reverse-transition="fade"
         transition="fade"
       ></v-carousel-item>
@@ -24,6 +25,7 @@
         <v-icon color="blue">arrow_right_alt</v-icon>
       </span>
     </div>
+    ￼
 
     <div class="summary">
       <span v-html="summary"></span>
@@ -36,23 +38,6 @@ import marked from 'marked'
 import contentful from '~/plugins/contentful.js'
 export default {
   components: {},
-  computed: {
-    mainTitle() {
-      return this.fields.titrePrincipal
-    },
-    mainDescription() {
-      return marked(this.fields.descriptionPrincipale)
-    },
-    summary() {
-      return marked(this.fields.encadre)
-    }
-  },
-  async asyncData({ params }) {
-    const results = await contentful.getEntry('4RnLCru9GQ1JcSVHvjY1J0')
-    const { fields } = results
-    // eslint-disable-next-line
-    return { fields }
-  },
   data() {
     return {
       items: [
@@ -70,6 +55,28 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    mainTitle() {
+      return this.fields.titrePrincipal
+    },
+    mainDescription() {
+      return marked(this.fields.descriptionPrincipale)
+    },
+    summary() {
+      return marked(this.fields.encadre)
+    },
+    carousselImages() {
+      return this.fields.caroussel.map(field => {
+        return field.fields.file.url
+      })
+    }
+  },
+  async asyncData({ params }) {
+    const results = await contentful.getEntry('4RnLCru9GQ1JcSVHvjY1J0')
+    const { fields } = results
+    // eslint-disable-next-line
+    return { fields }
   }
 }
 </script>
