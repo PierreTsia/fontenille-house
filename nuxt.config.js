@@ -2,7 +2,6 @@ import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import pkg from './package'
 require('dotenv').config()
 
-
 export default {
   mode: 'universal',
   env: {
@@ -42,7 +41,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/vuetify'],
+  plugins: ['@/plugins/vuetify', '@/plugins/contentful'],
 
   /*
    ** Nuxt.js modules
@@ -50,8 +49,12 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/markdownit'
   ],
+  markdownit: {
+    injected: true
+  },
   /*
    ** Axios module configuration
    */
@@ -74,6 +77,9 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {
+      config.node = {
+        fs: 'empty'
+      }
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({

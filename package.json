@@ -15,9 +15,13 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/markdownit": "^1.2.4",
     "@nuxtjs/pwa": "^2.6.0",
+    "contentful": "^7.5.1",
     "cross-env": "^5.2.0",
     "dotenv": "^8.0.0",
+    "fs": "0.0.1-security",
+    "marked": "^0.6.2",
     "nuxt": "^2.4.0",
     "vuetify": "^1.5.5",
     "vuetify-loader": "^1.2.1"

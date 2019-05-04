@@ -1,70 +1,98 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline"
-          >Welcome to the Vuetify + Nuxt.js template</v-card-title
-        >
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank">documentation</a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat"
-              >discord</a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-              >issue board</a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a href="https://nuxtjs.org/" target="_blank">Nuxt Documentation</a>
-          <br />
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank"
-            >Nuxt GitHub</a
-          >
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" flat nuxt to="/inspire">Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-container class="homePage">
+    <h1>{{ mainTitle }}</h1>
+    <v-carousel
+      delimiter-icon="stop"
+      prev-icon="mdi-arrow-left"
+      next-icon="mdi-arrow-right"
+    >
+      <v-carousel-item
+        v-for="(item, i) in items"
+        :key="i"
+        :src="item.src"
+        reverse-transition="fade"
+        transition="fade"
+      ></v-carousel-item>
+    </v-carousel>
+    <div class="mainDescription">
+      <span v-html="mainDescription"></span>
+    </div>
+
+    <div class="seeMore">
+      <span>
+        <nuxt-link to="/details">Voir plus </nuxt-link>
+        <v-icon color="blue">arrow_right_alt</v-icon>
+      </span>
+    </div>
+
+    <div class="summary">
+      <span v-html="summary"></span>
+    </div>
+  </v-container>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
+import marked from 'marked'
+import contentful from '~/plugins/contentful.js'
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
+  components: {},
+  computed: {
+    mainTitle() {
+      return this.fields.titrePrincipal
+    },
+    mainDescription() {
+      return marked(this.fields.descriptionPrincipale)
+    },
+    summary() {
+      return marked(this.fields.encadre)
+    }
+  },
+  async asyncData({ params }) {
+    const results = await contentful.getEntry('4RnLCru9GQ1JcSVHvjY1J0')
+    const { fields } = results
+    // eslint-disable-next-line
+    return { fields }
+  },
+  data() {
+    return {
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
+        }
+      ]
+    }
   }
 }
 </script>
+<style lang="stylus">
+.mainDescription
+  margin-top 50px
+  padding 20px
+
+.seeMore
+  width 100%
+  display flex
+  align-items center
+  justify-content flex-end
+  span
+    display flex
+    align-items center
+    .v-icon
+      margin-left 5px
+
+.summary
+  background-color rgba(lightgray, 0.2)
+  padding 10px
+  margin-top 20px
+  ul
+    list-style-type square
+</style>
