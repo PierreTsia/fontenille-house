@@ -1,62 +1,40 @@
 <template>
-  <v-container class="homePage">
-    <h1>{{ mainTitle }}</h1>
-    <v-carousel
-      delimiter-icon="stop"
-      prev-icon="mdi-arrow-left"
-      next-icon="mdi-arrow-right"
-      height="950"
+  <div :class="['fluid', 'homePage', { isMobile: initialSize < 400 }]">
+    <div
+      class="jumbotron"
+      :style="{ backgroundImage: `url('${jumbotronImage.url}')` }"
     >
-      <v-carousel-item
-        v-for="(item, i) in carousselImages"
-        :key="i"
-        :src="item"
-        reverse-transition="fade"
-        transition="fade"
-      ></v-carousel-item>
-    </v-carousel>
-    <div class="mainDescription">
-      <span v-html="mainDescription"></span>
+      <InfoCard :summary="summary" />
     </div>
-
-    <div class="seeMore">
-      <span>
-        <nuxt-link to="/details">Voir plus </nuxt-link>
-        <v-icon color="blue">arrow_right_alt</v-icon>
-      </span>
-    </div>
-    ￼
-
-    <div class="summary">
-      <span v-html="summary"></span>
-    </div>
-  </v-container>
+    <div class="photoBlock"></div>
+  </div>
 </template>
 
 <script>
 import marked from 'marked'
 import contentful from '~/plugins/contentful.js'
+import { mapGetters } from 'vuex'
+import InfoCard from '@/components/InfoCard'
 export default {
-  components: {},
+  components: {
+    InfoCard
+  },
+  mounted() {
+    this.initialSize = window.innerWidth
+  },
   data() {
     return {
-      items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-        }
-      ]
+      initialSize: null
     }
   },
   computed: {
+    ...mapGetters(['isMobile', 'isTablet', 'isDesktop', 'isWideScreen']),
+    test() {
+      return window.innerWidth
+    },
+    jumbotronImage() {
+      return this.fields.imageAccueil.fields.file
+    },
     mainTitle() {
       return this.fields.titrePrincipal
     },
@@ -81,25 +59,19 @@ export default {
 }
 </script>
 <style lang="stylus">
-.mainDescription
-  margin-top 50px
-  padding 20px
-
-.seeMore
-  width 100%
-  display flex
-  align-items center
-  justify-content flex-end
-  span
+.homePage
+  padding 0
+  .jumbotron
+    width 100%
+    height calc(100vh - 65px)
+    position relative
+    background-size cover
+    background-position bottom
     display flex
     align-items center
-    .v-icon
-      margin-left 5px
-
-.summary
-  background-color rgba(lightgray, 0.2)
-  padding 10px
-  margin-top 20px
-  ul
-    list-style-type square
+    &:not(.isMobile)
+      background-position center
+  .photoBlock
+    height 900px
+    background-color #323837
 </style>
