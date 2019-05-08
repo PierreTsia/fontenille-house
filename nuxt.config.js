@@ -4,6 +4,11 @@ require('dotenv').config()
 
 export default {
   mode: 'universal',
+  generate: {
+    minify: {
+      collapseWhitespace: false
+    }
+  },
   env: {
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
     CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN
