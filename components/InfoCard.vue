@@ -36,6 +36,7 @@ export default {
   display flex
   flex-direction column
   justify-content center
+  padding-bottom 10px
   .mainTitle
     text-align center
     font-size 45px
@@ -44,7 +45,7 @@ export default {
     text-align center
   .summary
     color white
-    padding 30px
+    padding 10px 30px
     flex-grow 1
     display flex
     flex-direction column
@@ -61,7 +62,6 @@ export default {
     display flex
     justify-content center
     align-items center
-    padding 10px 0
 
 @media screen and (min-width: 600px)
  .infoCard
