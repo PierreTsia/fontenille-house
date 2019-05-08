@@ -5,9 +5,6 @@
       :key="index"
       @click.native="handleImageClick(image)"
     >
-      <!--<el-image :src="image.url" :alt="image.title" style="height:100%;">
-      </el-image>-->
-
       <v-img
         :src="image.url"
         :lazy-src="image.url"
@@ -18,7 +15,7 @@
           <v-layout fill-height align-center justify-center ma-0>
             <v-progress-circular
               indeterminate
-              color="grey lighten-5"
+              color="primary"
             ></v-progress-circular>
           </v-layout>
         </template>
@@ -53,10 +50,10 @@ export default {
   padding 5px
   background-color rgba(#323837, 0.6)
   color white
-@media screen and (min-width: 1400px)
-  .el-carousel__container
-    height 400px
-@media screen and (min-width: 1600px)
+@media screen and (min-width: 1200px)
   .el-carousel__container
     height 600px
+@media screen and (min-width: 1600px)
+  .el-carousel__container
+    height 800px
 </style>
