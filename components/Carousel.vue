@@ -5,8 +5,8 @@
       :key="index"
       @click.native="handleImageClick(image)"
     >
-      <el-image :src="image.url" :alt="image.title" style="height:100%;">
-      </el-image>
+      <!--<el-image :src="image.url" :alt="image.title" style="height:100%;">
+      </el-image>-->
       <span class="imageDescription caption">{{ image.description }}</span>
     </el-carousel-item>
   </el-carousel>
