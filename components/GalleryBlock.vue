@@ -1,8 +1,5 @@
 <template>
-  <div class="galleryBlock container">
-    <div class="description">
-      description
-    </div>
+  <div class="galleryBlock">
     <Carousel class="carousel" :images="images" />
   </div>
 </template>
@@ -27,25 +24,11 @@ export default {
 <style lang="stylus">
 .galleryBlock
   width 100%
-  padding 20px
   display grid
+  padding 20px 0
   grid-template-columns repeat(12, 1fr)
   .carousel
     grid-column span 12
   .description
     grid-column span 12
-
-@media screen and (min-width: 600px)
-  .galleryBlock
-    .carousel
-      grid-column span 6
-    .description
-      grid-column span 6
-
-@media screen and (min-width: 900px)
-  .galleryBlock
-    .carousel
-      grid-column span 6
-    .description
-      grid-column span 6
 </style>

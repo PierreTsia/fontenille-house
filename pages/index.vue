@@ -7,7 +7,11 @@
       <InfoCard :summary="summary" />
     </div>
     <div class="photoBlock">
-      <GalleryBlock :images="carousselImages" />
+      <MainDescription
+        class="mainDescriptionBlock"
+        :content="mainDescription"
+      />
+      <GalleryBlock class="galleryBlock" :images="carousselImages" />
     </div>
   </div>
 </template>
@@ -18,11 +22,13 @@ import contentful from '@/plugins/contentful.js'
 import { mapGetters } from 'vuex'
 import InfoCard from '@/components/InfoCard'
 import GalleryBlock from '@/components/GalleryBlock'
+import MainDescription from '@/components/MainDescription'
 
 export default {
   components: {
     InfoCard,
-    GalleryBlock
+    GalleryBlock,
+    MainDescription
   },
   data() {
     return {
@@ -81,6 +87,14 @@ export default {
       background-position center
   .photoBlock
     background-color #323837
-    display flex
-    align-items center
+    display grid
+    grid-template-columns repeat(12, 1fr)
+    .mainDescriptionBlock, .galleryBlock
+      grid-column span 12
+
+@media screen and (min-width: 600px)
+  .homePage
+    .photoBlock
+      .mainDescriptionBlock, .galleryBlock
+        grid-column span 6
 </style>
