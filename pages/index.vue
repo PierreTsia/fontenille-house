@@ -6,21 +6,23 @@
     >
       <InfoCard :summary="summary" />
     </div>
-    <div class="photoBlock"></div>
+    <div class="photoBlock">
+      <GalleryBlock :images="carousselImages" />
+    </div>
   </div>
 </template>
 
 <script>
 import marked from 'marked'
-import contentful from '~/plugins/contentful.js'
+import contentful from '@/plugins/contentful.js'
 import { mapGetters } from 'vuex'
 import InfoCard from '@/components/InfoCard'
+import GalleryBlock from '@/components/GalleryBlock'
+
 export default {
   components: {
-    InfoCard
-  },
-  mounted() {
-    this.initialSize = window.innerWidth
+    InfoCard,
+    GalleryBlock
   },
   data() {
     return {
@@ -46,15 +48,21 @@ export default {
     },
     carousselImages() {
       return this.fields.caroussel.map(field => {
-        return field.fields.file.url
+        return {
+          url: field.fields.file.url,
+          title: field.fields.title,
+          description: field.fields.description
+        }
       })
     }
   },
-  async asyncData({ params }) {
+  async asyncData() {
     const results = await contentful.getEntry('4RnLCru9GQ1JcSVHvjY1J0')
     const { fields } = results
-    // eslint-disable-next-line
     return { fields }
+  },
+  mounted() {
+    this.initialSize = window.innerWidth
   }
 }
 </script>
@@ -72,6 +80,7 @@ export default {
     &:not(.isMobile)
       background-position center
   .photoBlock
-    height 900px
     background-color #323837
+    display flex
+    align-items center
 </style>

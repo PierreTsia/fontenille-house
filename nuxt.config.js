@@ -36,12 +36,20 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/style/app.styl'],
+  css: [
+    '~/assets/style/app.styl',
+    'element-ui/lib/theme-chalk/reset.css',
+    'element-ui/lib/theme-chalk/index.css'
+  ],
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/vuetify', '@/plugins/contentful'],
+  plugins: [
+    '@/plugins/vuetify',
+    '@/plugins/contentful',
+    { src: '@/plugins/element-ui', ssr: false }
+  ],
 
   /*
    ** Nuxt.js modules

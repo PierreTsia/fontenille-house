@@ -16,7 +16,12 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'InfoCard',
-  props: ['summary'],
+  props: {
+    summary: {
+      type: String,
+      defaul: ''
+    }
+  },
   computed: {
     ...mapGetters(['isMobile', 'isTablet'])
   }
@@ -56,6 +61,7 @@ export default {
     display flex
     justify-content center
     align-items center
+    padding 10px 0
 
 @media screen and (min-width: 600px)
  .infoCard
