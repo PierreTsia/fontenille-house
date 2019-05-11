@@ -11,7 +11,8 @@ export default {
   },
   env: {
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
-    CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN
+    CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
+    VUE_APP_GOOGLE_MAPS_API_KEY: process.env.VUE_APP_GOOGLE_MAPS_API_KEY
   },
   /*
    ** Headers of the page
@@ -53,7 +54,8 @@ export default {
   plugins: [
     '@/plugins/vuetify',
     '@/plugins/contentful',
-    { src: '@/plugins/element-ui', ssr: false }
+    { src: '@/plugins/element-ui', ssr: false },
+    { src: '@/plugins/google-maps', ssr: false }
   ],
 
   /*
