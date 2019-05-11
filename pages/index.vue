@@ -14,7 +14,7 @@
       <GalleryBlock class="galleryBlock" :images="carousselImages" />
     </div>
     <div class="detailsBlock">
-      <HouseDetails />
+      <HouseDetails :content="houseDetails" />
     </div>
   </div>
 </template>
@@ -56,6 +56,12 @@ export default {
     },
     summary() {
       return marked(this.fields.encadre)
+    },
+    houseDetails() {
+      return {
+        inside: marked(this.fields.interieur),
+        outside: marked(this.fields.exterieur)
+      }
     },
     carousselImages() {
       return this.fields.caroussel.map(field => {

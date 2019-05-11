@@ -30,19 +30,23 @@
   </div>
 </template>
 <script>
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'HouseDetailsMenu',
   data() {
-    return {
-      activeMenu: 'inside'
-    }
+    return {}
+  },
+  computed: {
+    ...mapGetters(['houseDetailsActiveMenu'])
   },
   methods: {
+    ...mapMutations(['setHouseDetailsMenu']),
     isActive(option) {
-      return this.activeMenu === option
+      return this.houseDetailsActiveMenu === option
     },
     setActiveMenu(option) {
-      this.activeMenu = option
+      // this.activeMenu = option
+      this.setHouseDetailsMenu(option)
     }
   }
 }
@@ -72,7 +76,7 @@ export default {
       font-size 2em
       font-weight 900
       margin 0 10px
-@media screen and (max-width:900px)
+@media screen and (max-width 899px)
   .houseDetails__menu
     position relative
     .houseDetails__menu__section.background
@@ -111,7 +115,7 @@ export default {
         &:before
           background-image url('../static/bg_inside.jpg')
 
-@media screen and (min-width: 901px)
+@media screen and (min-width 900px)
   .houseDetails__menu
     position relative
     .houseDetails__menu__section.background
