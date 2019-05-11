@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <el-carousel indicator-position="outside" :interval="5000">
     <el-carousel-item
       v-for="(image, index) in images"

@@ -11,7 +11,7 @@
         class="mainDescriptionBlock"
         :content="mainDescription"
       />
-      <GalleryBlock class="galleryBlock" :images="carousselImages" />
+      <Carousel class="carouselBlock" :images="carousselImages" />
     </div>
     <div class="detailsBlock">
       <HouseDetails :content="houseDetails" />
@@ -28,7 +28,7 @@ import marked from 'marked'
 import contentful from '@/plugins/contentful.js'
 import { mapGetters } from 'vuex'
 import InfoCard from '@/components/InfoCard'
-import GalleryBlock from '@/components/GalleryBlock'
+import Carousel from '@/components/Carousel'
 import MainDescription from '@/components/MainDescription'
 import HouseDetails from '../components/HouseDetails'
 import HouseMap from '../components/HouseMap'
@@ -38,7 +38,7 @@ export default {
   components: {
     HouseDetails,
     InfoCard,
-    GalleryBlock,
+    Carousel,
     MainDescription,
     HouseMap,
     HouseMapText
@@ -108,7 +108,7 @@ export default {
     background-color #323837
     display grid
     grid-template-columns repeat(12, 1fr)
-    .mainDescriptionBlock, .galleryBlock
+    .mainDescriptionBlock, .carouselBlock
       grid-column span 12
   .detailsBlock
     overflow hidden
@@ -127,8 +127,10 @@ export default {
 @media screen and (min-width 700px)
   .homePage
     .photoBlock
-      .mainDescriptionBlock, .galleryBlock
+      .mainDescriptionBlock, .carouselBlock
         grid-column span 6
+      .carouselBlock
+        padding 50px 0
     .mapBlock
       .houseMapTextBlock
         grid-column span 4
