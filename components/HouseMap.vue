@@ -105,5 +105,5 @@ export default {
         flex-direction column
 @media screen and (min-width 700px)
   .houseMapComponent
-    padding 20px 20px 0 0
+    padding 20px
 </style>
