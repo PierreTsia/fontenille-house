@@ -106,10 +106,10 @@ export default {
         z-index 11
       &.--outside
         &:before
-          background-image url('../static/bg_outside.JPG')
+          background-image url('../static/bg_outside.jpg')
       &.--inside
         &:before
-          background-image url('../static/bg_inside.JPG')
+          background-image url('../static/bg_inside.jpg')
 
 @media screen and (min-width: 901px)
   .houseDetails__menu
@@ -150,8 +150,8 @@ export default {
         z-index 11
       &.--outside
         &:before
-          background-image url('../static/bg_outside.JPG')
+          background-image url('../static/bg_outside.jpg')
       &.--inside
         &:before
-          background-image url('../static/bg_inside.JPG')
+          background-image url('../static/bg_inside.jpg')
 </style>
