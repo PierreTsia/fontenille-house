@@ -13,6 +13,9 @@
       />
       <GalleryBlock class="galleryBlock" :images="carousselImages" />
     </div>
+    <div class="detailsBlock">
+      <HouseDetails />
+    </div>
   </div>
 </template>
 
@@ -23,9 +26,11 @@ import { mapGetters } from 'vuex'
 import InfoCard from '@/components/InfoCard'
 import GalleryBlock from '@/components/GalleryBlock'
 import MainDescription from '@/components/MainDescription'
+import HouseDetails from '../components/HouseDetails'
 
 export default {
   components: {
+    HouseDetails,
     InfoCard,
     GalleryBlock,
     MainDescription
@@ -91,6 +96,8 @@ export default {
     grid-template-columns repeat(12, 1fr)
     .mainDescriptionBlock, .galleryBlock
       grid-column span 12
+  .detailsBlock
+    overflow hidden
 
 @media screen and (min-width: 600px)
   .homePage

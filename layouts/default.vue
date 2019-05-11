@@ -19,11 +19,6 @@ export default {
       windowSize: ''
     }
   },
-  mounted() {
-    if (process.browser) {
-      window.addEventListener('resize', this.handleResize)
-    }
-  },
   watch: {
     windowSize: {
       immediate: true,
@@ -45,6 +40,11 @@ export default {
           this.setFormat(format)
         }
       }
+    }
+  },
+  mounted() {
+    if (process.browser) {
+      window.addEventListener('resize', this.handleResize)
     }
   },
   methods: {
