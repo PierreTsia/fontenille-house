@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <el-carousel indicator-position="outside" :interval="5000">
     <el-carousel-item
       v-for="(image, index) in images"
@@ -50,7 +50,7 @@ export default {
   padding 5px
   background-color rgba(#323837, 0.6)
   color white
-@media screen and (min-width: 1200px)
+@media screen and (min-width: 1000px)
   .el-carousel__container
     height 600px
 @media screen and (min-width: 1600px)
