@@ -26,7 +26,13 @@
         required
       ></v-textarea>
 
-      <v-btn :disabled="!valid" color="accent" @click="validate">
+      <v-btn
+        dark
+        :loading="isLoading"
+        :disabled="!valid"
+        color="accent"
+        @click="validate"
+      >
         <v-icon class="mr-2" dark>mail_outline</v-icon>
         Envoyer
       </v-btn>
@@ -35,12 +41,22 @@
         Annuler
       </v-btn>
     </v-form>
+
+    <SnackBar
+      @onClose="snackbar = !snackbar"
+      :content="snackContent"
+      :snackbar="snackbar"
+    />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import SnackBar from '@/components/SnackBar'
+
 export default {
   name: 'ContactForm',
+  components: { SnackBar },
   data: () => ({
     valid: true,
     name: '',
@@ -61,14 +77,59 @@ export default {
         (v && v.length > 10) || 'Votre message doit compter au moins 10 lettres'
     ],
     message: '',
-    checkbox: false
+    checkbox: false,
+    contactFormUrl:
+      'https://us-central1-fontenille-house-1557583570069.cloudfunctions.net/submitPOUET',
+    isLoading: false,
+    snackbar: false,
+    snackContent: {},
+    snackOptions: {
+      error: {
+        message: '😭😭 Oups, il y a eu un problème...',
+        color: 'red'
+      },
+      success: {
+        message: '🚀🚀 Votre message a bien été envoyé ! ',
+        color: 'green'
+      }
+    }
   }),
 
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        // eslint-disable-next-line
-        console.log('yihaa')
+        this.isLoading = true
+        axios
+          .post(this.contactFormUrl, {
+            name: this.name,
+            email: this.email,
+            message: this.message
+          })
+          .then(({ data }) => {
+            // eslint-disable-next-line
+            console.log(data)
+            const { success, error } = data
+            if (success) {
+              // eslint-disable-next-line
+              console.log(success)
+              this.snackContent = this.snackOptions.success
+              this.reset()
+              this.snackbar = true
+            }
+            if (error) {
+              // eslint-disable-next-line
+              console.log('ooops something went wrong', error)
+              this.snackContent = this.snackOptions.error
+              this.snackbar = true
+            }
+          })
+          .catch(e => {
+            this.snackContent = this.snackOptions.error
+          })
+          .finally(() => {
+            this.isLoading = false
+            this.snackbar = true
+          })
       }
     },
     reset() {
