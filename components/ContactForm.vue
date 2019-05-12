@@ -79,7 +79,7 @@ export default {
     message: '',
     checkbox: false,
     contactFormUrl:
-      'https://us-central1-fontenille-house-1557583570069.cloudfunctions.net/submitPOUET',
+      'https://us-central1-fontenille-house-1557583570069.cloudfunctions.net/submit',
     isLoading: false,
     snackbar: false,
     snackContent: {},
@@ -106,21 +106,11 @@ export default {
             message: this.message
           })
           .then(({ data }) => {
-            // eslint-disable-next-line
-            console.log(data)
-            const { success, error } = data
+            const { success } = data
+
             if (success) {
-              // eslint-disable-next-line
-              console.log(success)
               this.snackContent = this.snackOptions.success
               this.reset()
-              this.snackbar = true
-            }
-            if (error) {
-              // eslint-disable-next-line
-              console.log('ooops something went wrong', error)
-              this.snackContent = this.snackOptions.error
-              this.snackbar = true
             }
           })
           .catch(e => {

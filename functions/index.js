@@ -14,17 +14,14 @@ const mailTransport = nodemailer.createTransport({
 exports.submit = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
     if (req.method !== 'POST') {
-      console.log('only accepts post request')
-      return
+      return res.status(404).send({ error: 'accepts only post request' })
     }
     const { email, message, name } = req.body
-    console.log('body', req.body)
-    console.log('sebnder', gmailEmail)
     const mailOptions = {
       from: email,
       replyTo: req.body.email,
       to: gmailEmail,
-      subject: `${name}, ${email} vous a envoyé un message `,
+      subject: `[SITE MAISON] ${name} vous a envoyé un message`,
       text: req.body.message,
       html: `<p>${req.body.message}</p>`
     }
