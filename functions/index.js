@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer')
 const cors = require('cors')({ origin: true })
 const gmailEmail = functions.config().gmail.email
 const gmailPassword = functions.config().gmail.password
+const recipientEmail = functions.config().recipient.email
 const mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -26,11 +27,14 @@ exports.submit = functions.https.onRequest((req, res) => {
       html: `<p>${req.body.message}</p>`
     }
 
+    console.log(mailOptions)
+
     mailTransport.sendMail(mailOptions, (error, info) => {
       if (error) {
         res.status(400).send({ error })
       }
-      res.status(200).send({ success: true })
+      console.log(info)
+      res.status(200).send({ success: true, info })
     })
   })
 })

@@ -87,13 +87,15 @@ export default {
       return marked(this.fields.contactDetails)
     },
     carousselImages() {
-      return this.fields.caroussel.map(field => {
-        return {
-          url: field.fields.file.url,
-          title: field.fields.title,
-          description: field.fields.description
-        }
-      })
+      return this.fields.caroussel
+        .filter(f => f.fields.file)
+        .map(field => {
+          return {
+            url: field.fields.file.url,
+            title: field.fields.title,
+            description: field.fields.description
+          }
+        })
     }
   },
   async asyncData() {
